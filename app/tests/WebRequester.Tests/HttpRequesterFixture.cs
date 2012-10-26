@@ -1,6 +1,8 @@
 ﻿namespace WebRequester.Tests
 {
+    using System.Collections.Generic;
     using System.IO;
+    using System.Net;
 
     using NUnit.Framework;
 
@@ -39,7 +41,7 @@
             var response = this.requester.Get(Uri);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(404);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.NotFound);
         }
 
         [Test]
@@ -52,7 +54,7 @@
             var response = this.requester.Get(Uri);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(200);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
         }
 
         [Test]
@@ -66,7 +68,7 @@
             var response = this.requester.Get(Uri, parameters);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(200);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
         }
 
         [Test]
@@ -74,14 +76,13 @@
         {
             // Arrange:
             const string Uri = "http://localhost:5555/Get/OK";
-            var q = "titans";
-            var parameters = new { q, include_entities = true };
+            var parameters = new { q = "titans", include_entities = true };
 
             // Act:
             var response = this.requester.Get(Uri, parameters);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(200);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
         }
 
         [Test]
@@ -90,13 +91,13 @@
             // Arrange:
             const string Uri = "http://localhost:5555/Get/OK";
             var parameters = new { q = "titans", include_entities = true };
-            var headers = new { token = "token" };
+            var headers = new Dictionary<string, string> { { "token", "token" } };
 
             // Act:
             var response = this.requester.Get(Uri, parameters, headers);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(200);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
         }
 
         [Test]
@@ -110,7 +111,7 @@
             var response = this.requester.Post(Uri, parameters);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(200);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
         }
 
         [Test]
@@ -119,12 +120,13 @@
             // Arrange:
             const string Uri = "http://localhost:5555/Post/Error";
             var parameters = new { carrier = "9", username = "0100000020", password = "1256" };
+            var headers = new Dictionary<string, object> { { "error", 1 } };
 
             // Act:
-            var response = this.requester.Post(Uri, parameters);
+            var response = this.requester.Post(Uri, parameters, headers);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(405);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.MethodNotAllowed);
         }
 
         [Test]
@@ -138,7 +140,7 @@
             var response = this.requester.Put(Uri, parameters);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(200);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
         }
 
         [Test]
@@ -152,7 +154,7 @@
             var response = this.requester.Put(Uri, parameters);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(405);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.MethodNotAllowed);
         }
 
         [Test]
@@ -166,7 +168,7 @@
             var response = this.requester.Delete(Uri, parameters);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(200);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
         }
 
         [Test]
@@ -180,7 +182,7 @@
             var response = this.requester.Delete(Uri, parameters);
 
             // Assert:
-            response.HttpStatusCode.Should().Be.EqualTo(405);
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.MethodNotAllowed);
         }
 
         [Test]

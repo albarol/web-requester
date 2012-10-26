@@ -7,19 +7,34 @@
 
     internal static class HttpExtensions
     {
-        public static IDictionary<string, object> ToDictionary(this object obj)
+        public static IDictionary<string, string> ToDictionary(this object obj)
         {
-            if (obj == null) 
+            try
             {
-                return new Dictionary<string, object>();
-            }
 
-            if (obj is IDictionary<string, object>)
+                if (obj == null)
+                {
+                    return new Dictionary<string, string>();
+                }
+                else if (obj is IDictionary<string, string>)
+                {
+                    return (IDictionary<string, string>)obj;
+                }
+                else if (obj is IDictionary<string, object>)
+                {
+                    var dict = (IDictionary<string, object>)obj;
+                    return dict.ToDictionary(d => d.Key, d => d.Value.ToString());
+                }
+                else
+                {
+                    return obj.GetType().GetProperties().Where(p => p.GetValue(obj, null) != null).ToDictionary(
+                    p => p.Name, p => p.GetValue(obj, null).ToString());    
+                }
+            }
+            catch
             {
-                return (IDictionary<string, object>)obj;
+                return new Dictionary<string, string>();
             }
-
-            return obj.GetType().GetProperties().Where(p => p.GetValue(obj, null) != null).ToDictionary(p => p.Name, p => p.GetValue(obj, null));
         }
 
         public static string ToGetParameters(this object obj)
