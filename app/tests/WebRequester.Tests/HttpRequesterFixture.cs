@@ -74,7 +74,8 @@
         {
             // Arrange:
             const string Uri = "http://localhost:5555/Get/OK";
-            var parameters = new { q = "titans", include_entities = true };
+            var q = "titans";
+            var parameters = new { q, include_entities = true };
 
             // Act:
             var response = this.requester.Get(Uri, parameters);

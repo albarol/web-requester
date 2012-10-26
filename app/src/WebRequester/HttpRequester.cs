@@ -188,7 +188,7 @@
                 return new HttpDownloadResponse
                 {
                     TemporaryFile = tempFile,
-                    HttpStatusCode = (int)webResponse.StatusCode
+                    HttpStatusCode = webResponse.StatusCode
                 };
             }
             catch (WebException e)
@@ -196,9 +196,9 @@
                 if (e.Status == WebExceptionStatus.ProtocolError && e.Response != null)
                 {
                     var resp = (HttpWebResponse)e.Response;
-                    return new HttpDownloadResponse { HttpStatusCode = (int)resp.StatusCode };
+                    return new HttpDownloadResponse { HttpStatusCode = resp.StatusCode };
                 }
-                return new HttpDownloadResponse { HttpStatusCode = (int)HttpStatusCode.ServiceUnavailable };
+                return new HttpDownloadResponse { HttpStatusCode = HttpStatusCode.ServiceUnavailable };
             }
         }
 
@@ -220,7 +220,7 @@
                 var webResponse = (HttpWebResponse)webRequest.GetResponse();
                 return new HttpResponse
                 {
-                    HttpStatusCode = (int)webResponse.StatusCode,
+                    HttpStatusCode = webResponse.StatusCode,
                     Body = this.ReadBody(webResponse)
                 };
             }
@@ -229,9 +229,9 @@
                 if (e.Status == WebExceptionStatus.ProtocolError && e.Response != null)
                 {
                     var resp = (HttpWebResponse)e.Response;
-                    return new HttpResponse { HttpStatusCode = (int)resp.StatusCode };
+                    return new HttpResponse { HttpStatusCode = resp.StatusCode };
                 }
-                return new HttpResponse { HttpStatusCode = (int)HttpStatusCode.ServiceUnavailable };
+                return new HttpResponse { HttpStatusCode = HttpStatusCode.ServiceUnavailable };
             }
         }
 

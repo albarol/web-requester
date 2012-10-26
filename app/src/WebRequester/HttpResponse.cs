@@ -1,8 +1,10 @@
 ﻿namespace WebRequester
 {
+    using System.Net;
+
     public class HttpResponse
     {
-        public int HttpStatusCode { get; set; }
+        public HttpStatusCode HttpStatusCode { get; set; }
         public string Body { get; set; }
     }
 }

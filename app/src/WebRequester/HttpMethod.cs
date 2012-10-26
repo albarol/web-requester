@@ -1,6 +1,6 @@
 ﻿namespace WebRequester
 {
-    public enum HttpMethod
+    internal enum HttpMethod
     {
         Get,
         Post,
