@@ -17,12 +17,11 @@
                 }
                 else if (obj is IDictionary<string, string>)
                 {
-                    return (IDictionary<string, string>)obj;
+                    return NormalizeDictionary<IDictionary<string, string>, string>(obj);
                 }
                 else if (obj is IDictionary<string, object>)
                 {
-                    var dict = (IDictionary<string, object>)obj;
-                    return dict.Where(d => d.Value != null).ToDictionary(d => d.Key, d => d.Value.ToString());
+                    return NormalizeDictionary<IDictionary<string, object>, object>(obj);
                 }
                 else
                 {
@@ -59,6 +58,12 @@
             }
             builder.Remove(builder.Length - 1, 1);
             return Encoding.UTF8.GetBytes(builder.ToString());
+        }
+
+        private static IDictionary<string, string> NormalizeDictionary<T, TU>(object obj) where T : IDictionary<string, TU>
+        {
+            var dict = (T)obj;
+            return dict.Where(d => d.Value != null).ToDictionary(d => d.Key, d => d.Value.ToString());
         }
     }
 }
