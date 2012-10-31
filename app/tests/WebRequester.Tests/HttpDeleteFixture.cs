@@ -33,7 +33,7 @@
         public void Delete_ShouldReturn200WhenSendParameters()
         {
             // Arrange:
-            const string Uri = "http://localhost:5555/Delete";
+            const string Uri = "http://localhost:5555/Ok";
             var parameters = new { carrier = "9", username = "0100000020", password = "123456" };
 
             // Act:
@@ -47,7 +47,7 @@
         public void Delete_ShouldReturn405WhenSendIncorrectParameters()
         {
             // Arrange:
-            const string Uri = "http://localhost:5555/Delete/Error";
+            const string Uri = "http://localhost:5555/Error";
             var parameters = new { carrier = "9", username = "0100000020", password = "1256" };
 
             // Act:

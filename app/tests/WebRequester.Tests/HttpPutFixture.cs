@@ -33,7 +33,7 @@
         public void Put_ShouldReturn200WhenSendParameters()
         {
             // Arrange:
-            const string Uri = "http://localhost:5555/Put";
+            const string Uri = "http://localhost:5555/Ok";
             var parameters = new { carrier = "9", username = "0100000020", password = "123456" };
 
             // Act:
@@ -47,7 +47,7 @@
         public void Put_ShouldReturn405WhenSendIncorrectParameters()
         {
             // Arrange:
-            const string Uri = "http://localhost:5555/Put/Error";
+            const string Uri = "http://localhost:5555/Error";
             var parameters = new { carrier = "9", username = "0100000020", password = "1256" };
 
             // Act:

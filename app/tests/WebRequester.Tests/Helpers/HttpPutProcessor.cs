@@ -7,8 +7,8 @@
     [ServiceContract]
     public class HttpPutProcessor
     {
-        [WebInvoke(Method = "PUT", UriTemplate = "/Put")]
-        public Stream Put()
+        [WebInvoke(Method = "PUT", UriTemplate = "/OK")]
+        public Stream Ok()
         {
             var woc = WebOperationContext.Current;
             var ir = woc.IncomingRequest;
@@ -19,8 +19,8 @@
             return null;
         }
 
-        [WebInvoke(Method = "PUT", UriTemplate = "/Put/Error")]
-        public Stream PutError()
+        [WebInvoke(Method = "PUT", UriTemplate = "/Error")]
+        public Stream Error()
         {
             var woc = WebOperationContext.Current;
             var ir = woc.IncomingRequest;

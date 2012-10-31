@@ -7,7 +7,7 @@
     [ServiceContract]
     public class HttpDeleteProcessor
     {
-        [WebInvoke(Method = "DELETE", UriTemplate = "/Delete")]
+        [WebInvoke(Method = "DELETE", UriTemplate = "/Ok")]
         public Stream Delete()
         {
             var woc = WebOperationContext.Current;
@@ -19,7 +19,7 @@
             return null;
         }
 
-        [WebInvoke(Method = "DELETE", UriTemplate = "/Delete/Error")]
+        [WebInvoke(Method = "DELETE", UriTemplate = "/Error")]
         public Stream DeleteError()
         {
             var woc = WebOperationContext.Current;
