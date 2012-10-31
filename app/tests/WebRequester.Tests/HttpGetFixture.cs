@@ -99,6 +99,19 @@
         }
 
         [Test]
+        public void Get_ShouldReturn503WhenResourceIsUnavaliable()
+        {
+            // Arrange:
+            const string Uri = "http://qkmqekeqkmeqkek.net.as";
+
+            // Act:
+            var response = this.requester.Get(Uri);
+
+            // Assert:
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.ServiceUnavailable);
+        }
+
+        [Test]
         public void Get_ShouldReturnResponseHeaders()
         {
             // Arrange:
@@ -125,6 +138,47 @@
             // Assert:
             File.Exists(download.TemporaryFile).Should().Be.True();
             File.Delete(download.TemporaryFile);
+        }
+
+        [Test]
+        public void Download_CanDownloadFileFromUrlWithParamters()
+        {
+            // Arrange
+            const string Uri = "http://projects.developer.nokia.com/restfulplacesaround/browser/release_notes.txt";
+            var parameters = new { version = "1.0" };
+
+            // Act:
+            var download = this.requester.Download(Uri, parameters);
+
+            // Assert:
+            File.Exists(download.TemporaryFile).Should().Be.True();
+            File.Delete(download.TemporaryFile);
+        }
+
+        [Test]
+        public void Download_ShouldReturn404WhenNotFoundResource()
+        {
+            // Arrange
+            const string Uri = "http://localhost:5555";
+
+            // Act:
+            var download = this.requester.Download(Uri);
+
+            // Assert:
+            download.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.NotFound);
+        }
+
+        [Test]
+        public void Download_ShouldReturn503WhenResourceIsUnavaliable()
+        {
+            // Arrange
+            const string Uri = "http://qkmqekeqkmeqkek.net.as";
+
+            // Act:
+            var download = this.requester.Download(Uri);
+
+            // Assert:
+            download.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.ServiceUnavailable);
         }
     }
 }

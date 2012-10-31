@@ -2,6 +2,7 @@
 
 namespace WebRequester.Tests
 {
+    using System.IO;
     using System.Net;
 
     using NUnit.Framework;
@@ -58,6 +59,38 @@ namespace WebRequester.Tests
 
             // Assert:
             response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.MethodNotAllowed);
+        }
+
+        [Test]
+        public void Upload_ShouldReturn200WhenUploadFile()
+        {
+            // Arrange:
+            const string Uri = "http://localhost:5555/OK";
+            var tempFile = Path.GetTempFileName();
+            var file = new FileStream(tempFile, FileMode.Open, FileAccess.Read);
+
+            // Act:
+            var response = this.requester.Upload(Uri, file);
+
+            // Assert:
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.OK);
+            File.Delete(tempFile);
+        }
+
+        [Test]
+        public void Upload_ShouldReturn405WhenUploadIncorrectFile()
+        {
+            // Arrange:
+            const string Uri = "http://localhost:5555/NotAllowed";
+            var tempFile = Path.GetTempFileName();
+            var file = new FileStream(tempFile, FileMode.Open, FileAccess.Read);
+
+            // Act:
+            var response = this.requester.Upload(Uri, file);
+
+            // Assert:
+            response.HttpStatusCode.Should().Be.EqualTo(HttpStatusCode.MethodNotAllowed);
+            File.Delete(tempFile);
         }
     }
 }

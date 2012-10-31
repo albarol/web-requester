@@ -30,5 +30,17 @@
             or.StatusCode = System.Net.HttpStatusCode.MethodNotAllowed;
             return null;
         }
+
+        [WebInvoke(Method = "POST", UriTemplate = "/NotAllowed")]
+        public Stream NotAllowed()
+        {
+            var woc = WebOperationContext.Current;
+            var ir = woc.IncomingRequest;
+            var or = woc.OutgoingResponse;
+
+            var uri = ir.UriTemplateMatch.RequestUri;
+            or.StatusCode = System.Net.HttpStatusCode.MethodNotAllowed;
+            return null;
+        }
     }
 }
