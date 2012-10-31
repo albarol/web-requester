@@ -11,7 +11,6 @@
         {
             try
             {
-
                 if (obj == null)
                 {
                     return new Dictionary<string, string>();
@@ -23,7 +22,7 @@
                 else if (obj is IDictionary<string, object>)
                 {
                     var dict = (IDictionary<string, object>)obj;
-                    return dict.ToDictionary(d => d.Key, d => d.Value.ToString());
+                    return dict.Where(d => d.Value != null).ToDictionary(d => d.Key, d => d.Value.ToString());
                 }
                 else
                 {
