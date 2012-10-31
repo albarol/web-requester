@@ -95,6 +95,17 @@
             return this.GetResponse(webRequest);
         }
 
+        public HttpResponse Head(string uri)
+        {
+            return this.Head(uri, null);
+        }
+
+        public HttpResponse Head(string uri, object headers)
+        {
+            var webRequest = this.PrepareRequest(HttpMethod.Head, uri, headers);
+            return this.GetResponse(webRequest);
+        }
+
         public HttpResponse Upload(string uri, FileStream stream)
         {
             return this.Upload(uri, stream, null);

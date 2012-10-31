@@ -7,7 +7,6 @@
         Put,
         Delete,
         Options,
-        Head,
-        Trace
+        Head
     }
 }

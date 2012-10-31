@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\HttpHeadProcessor.cs" />
+    <Compile Include="HttpHeadFixture.cs" />
     <Compile Include="Helpers\HttpDeleteProcessor.cs" />
     <Compile Include="Helpers\HttpOptionsProcessor.cs" />
     <Compile Include="Helpers\HttpPostProcessor.cs" />
