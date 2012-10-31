@@ -1,7 +1,9 @@
 ﻿namespace WebRequester
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Text;
 
@@ -80,6 +82,17 @@
         {
             var finalUri = string.Format("{0}{1}", uri, parameters.ToGetParameters());
             var webRequest = this.PrepareRequest(HttpMethod.Delete, finalUri, headers);
+            return this.GetResponse(webRequest);
+        }
+
+        public HttpResponse Options(string uri)
+        {
+            return this.Options(uri, null);
+        }
+
+        public HttpResponse Options(string uri, object headers)
+        {
+            var webRequest = this.PrepareRequest(HttpMethod.Options, uri, headers);
             return this.GetResponse(webRequest);
         }
 
@@ -221,15 +234,21 @@
                 return new HttpResponse
                 {
                     HttpStatusCode = webResponse.StatusCode,
-                    Body = this.ReadBody(webResponse)
+                    Body = this.ReadBody(webResponse),
+                    Headers = webResponse.Headers.AllKeys.ToDictionary(key => key, key => webResponse.Headers[key])
                 };
+
             }
             catch (WebException e)
             {
                 if (e.Status == WebExceptionStatus.ProtocolError && e.Response != null)
                 {
                     var resp = (HttpWebResponse)e.Response;
-                    return new HttpResponse { HttpStatusCode = resp.StatusCode };
+                    return new HttpResponse
+                    {
+                        HttpStatusCode = resp.StatusCode,
+                        Headers = resp.Headers.AllKeys.ToDictionary(key => key, key => resp.Headers[key])
+                    };
                 }
                 return new HttpResponse { HttpStatusCode = HttpStatusCode.ServiceUnavailable };
             }

@@ -5,6 +5,9 @@
         Get,
         Post,
         Put,
-        Delete
+        Delete,
+        Options,
+        Head,
+        Trace
     }
 }
