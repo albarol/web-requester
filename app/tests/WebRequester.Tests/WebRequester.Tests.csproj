@@ -50,9 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\HttpProcessor.cs" />
+    <Compile Include="Helpers\HttpDeleteProcessor.cs" />
+    <Compile Include="Helpers\HttpOptionsProcessor.cs" />
+    <Compile Include="Helpers\HttpPostProcessor.cs" />
+    <Compile Include="Helpers\HttpGetProcessor.cs" />
+    <Compile Include="Helpers\HttpPutProcessor.cs" />
     <Compile Include="Helpers\WebRequesterHost.cs" />
-    <Compile Include="HttpRequesterFixture.cs" />
+    <Compile Include="HttpDeleteFixture.cs" />
+    <Compile Include="HttpGetFixture.cs" />
+    <Compile Include="HttpOptionsFixture.cs" />
+    <Compile Include="HttpPostFixture.cs" />
+    <Compile Include="HttpPutFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

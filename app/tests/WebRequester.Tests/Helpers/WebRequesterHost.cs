@@ -7,9 +7,9 @@
     {
         private readonly WebServiceHost host;
 
-        public WebRequesterHost()
+        public WebRequesterHost(Type processor)
         {
-            this.host = new WebServiceHost(typeof(HttpProcessor), new Uri("http://localhost:5555"));
+            this.host = new WebServiceHost(processor, new Uri("http://localhost:5555"));
         }
 
         public void Open()
